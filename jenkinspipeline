@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/meenigenikhitha/nikki.git'
+                dir('day01_terraform'){
+                }
+            }
+        }
+        stage('init') {
+            steps {
+                dir('day01_terraform'){
+                    sh 'terraform init'
+                }
+            }
+        }
+         stage('plan') {
+            steps {
+                dir('day01_terraform'){
+                    sh 'terraform plan'
+                }
+            }
+         }
+        stage('apply') {
+            steps {
+                dir('day01_terraform'){
+                    sh 'terraform destroy -auto-approve'
+                }
+                }
+            }
+                
+        }
+    }
